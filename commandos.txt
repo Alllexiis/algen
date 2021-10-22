@@ -1,0 +1,6 @@
+antes de começar:
+	git pull 
+depois antes de terminar:
+	git add .
+	git commit -m "mensagem"
+	git push
