@@ -1,4 +1,4 @@
-%Funcao a optimizar
+Funcao a optimizar
 function z=custo4(x)
 %Funcao fitness
 pg2=13.33*x(1) - 10*x(2);
