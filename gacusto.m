@@ -2,14 +2,23 @@
 %X = GA(FITNESSFCN,NVARS,A,b,Aeq,beq,lb,ub,NONLCON,options)
 function [x,fval] = gacusto()
     %loading variables
-    global pg1 pg1_2 pg2 pg2_2;    
+    
+    plots={@gaplotbestf,@gaplotbestindiv,@gaplotexpectation,@gaplotstopping};
+    InitRange = [0;1];
+    PopSize = 50;
+    MaxGen = 1000;
+    
     load cachefile;
+    %falta PopSize InitRange [a,b] plots
     %if cachefile does not exist, create default ?
     
     %Setting options
-    options = gaoptimset('PlotFcns',...
-    {@gaplotbestf,@gaplotbestindiv,@gaplotexpectation,@gaplotstopping},...
-     'PopInitRange',[0;1]); 
+    options = optimoptions('ga',... % genetic algorithm
+    'PlotFcn', plots,...            %what plots to show plots 
+    'PopInitRange', InitRange,...   %alterar valores tomados inicalmente pela população
+    'PopulationSize', PopSize,...   %numero da população
+    'MaxGenerations', MaxGen...
+    );     
  
     %Function call @custo
     [x, fval] = ga(@custo,...
