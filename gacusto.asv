@@ -8,7 +8,6 @@ function [x,fval] = gacusto()
     PopSize = 50;
     MaxGen = 1000;
     
-    global pg1 pg1_2 pg2 pg2_2
     load cachefile;
     %falta PopSize InitRange [a,b] plots
     %if cachefile does not exist, create default ?
@@ -18,17 +17,18 @@ function [x,fval] = gacusto()
     'PlotFcn', plots,...            %what plots to show plots 
     'PopInitRange', InitRange,...   %alterar valores tomados inicalmente pela população
     'PopulationSize', PopSize,...   %numero da população
-    'MaxGenerations', MaxGen);     
+    'MaxGenerations', MaxGen...
+    );     
  
-    %Function call 
+    %Function call @custo
     [x, fval] = ga(@custo,...
         2       ,...<Number of design variables>
-        [1 0]   ,...<A matrix for inequality constraints>   %x1 ou x2
-        0.5     ,...<b vector for inequality constraints>   %<= ao valor
-        [1 1]   ,...<Aeq matrix for equality constraints>   %x1 +x2 =
-        0.9     ,...<beq vector for equality constraints>   %0.9
+        [1 0]   ,...<A matrix for inequality constraints>   x1 ou x2
+        1       ,...<b vector for inequality constraints>   <= ao valor
+        [1 1]   ,...<Aeq matrix for equality constraints>   x1 +x2 =
+        0.9     ,...<beq vector for equality constraints>   0.9
         0       ,...<Lower bound on X> limite inferior
-        2*pi    ,...<Upper bound on X> limite superior
+        0.9     ,...<Upper bound on X> limite superior
         []      ,...NONLCON
         options);
     
