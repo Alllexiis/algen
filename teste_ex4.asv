@@ -30,8 +30,10 @@ B = [a11 a12 a13   ;
 % B(:,1)=[];
 syms teta1 teta2 teta3;
 
-teta=[teta1;teta2;teta3]
-P = B*teta
+teta=[0;teta2;teta3]
+P = B*teta;
+P(1)=[]
 % teta = inv(B)*P;
 % teta = [teta1;teta]
+
 
