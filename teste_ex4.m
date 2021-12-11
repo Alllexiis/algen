@@ -36,3 +36,4 @@ P(1)=[]
 % teta = inv(B)*P;
 % teta = [teta1;teta]
 
+
