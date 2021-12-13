@@ -1,6 +1,9 @@
 %Programa de optimizacao
 %X = GA(FITNESSFCN,NVARS,A,b,Aeq,beq,lb,ub,NONLCON,options)
 function [x,fval] = gacusto()
+    %if cachefile does not exist, create default ?
+    %maybe not needed    
+
     %loading variables
     
     plots={@gaplotbestf,@gaplotbestindiv,@gaplotexpectation,@gaplotstopping};
@@ -14,7 +17,6 @@ function [x,fval] = gacusto()
     
     load cachefile;
     %falta PopSize InitRange [a,b] plots
-    %if cachefile does not exist, create default ?
     x12=0.3;
     x23=0.1;
     x13=0.1;
