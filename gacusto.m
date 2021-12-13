@@ -7,16 +7,17 @@ function [x,fval] = gacusto()
     %loading variables
     
     plots={@gaplotbestf,@gaplotbestindiv,@gaplotexpectation,@gaplotstopping};
-    InitRange = [0;1];
-    PopSize = 50;
-    MaxGen = 1000;
     
-    global pg1 pg1_2 pg2 pg2_2; 
+    %global pg1 pg1_2 pg2 pg2_2; 
     global x12 x23 x13;
     global c11 c12 c21 c22;
     
     load cachefile;
+    % x's e c's
+    % carregar e substituir se ex*2,3 ou 4
     %falta PopSize InitRange [a,b] plots
+    
+    [x12, x23, x13] = deal( df );
     x12=0.3;
     x23=0.1;
     x13=0.1;
@@ -26,18 +27,20 @@ function [x,fval] = gacusto()
     c22=0.3;
     
     %Setting options
-    options = optimoptions('ga',... % genetic algorithm
-    'PlotFcn', plots,...            %what plots to show plots 
-    'PopInitRange', InitRange,...   %alterar valores tomados inicalmente pela população
-    'PopulationSize', PopSize,...   %numero da população
-    'MaxGenerations', MaxGen,...     
-    'MaxTime',  MaxTime,...
-    'SelectionFcn', Selection,...
-    'MutationFcn', Mutation,...
-    'CrossoverFcn', Crossover,...
-    'InitialPenalty', InitPen,...
-    'PenaltyFactor', PenFactor);
-    
+    options = optimoptions('ga',...     % genetic algorithm
+        'PopulationSize',   PopSize,...   % numero da população
+        'PopInitRange',     InitRange,...
+        'MaxGenerations',   MaxGen,...    % 
+        'MaxTime',          MaxTime,...         %
+        'InitialPenalty',   InitPen,...
+        'PenaltyFactor',    PenFactor,...
+        'PlotFcn',          plots,...
+        'SelectionFcn',     Selection,...   %
+        'EliteCount',       EliteCount,...
+        'CrossoverFraction',CrossFract,...
+        'MutationFcn',      Mutation,...     %
+        'CrossoverFcn',     Crossover);     %
+        
     %Nao Limites
     A=[];
     b=[];
