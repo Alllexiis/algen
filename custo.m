@@ -2,12 +2,12 @@
 function z=custo(x)
     %Funcao fitness
     global pg1 pg2; 
-    global x12 x23 x13;
+    global x12 x23 x13 NODAL;
     global c11 c12 c21 c22;
     
     if ~NODAL
-        pg1 = x(1)
-        pg2 = x(2)
+        pg1 = x(1);
+        pg2 = x(2);
     else
         pg1 = x(1)*(1/x12 + 1/x23) - x(2)/x23;
         pg2 = x(2)*(1/x13 + 1/x23) - x(1)/x23;
