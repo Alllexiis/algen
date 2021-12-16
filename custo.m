@@ -9,8 +9,8 @@ function z=custo(x)
         pg1 = x(1);
         pg2 = x(2);
     else
-        pg1 = x(1)*(1/x12 + 1/x23) - x(2)/x23;
-        pg2 = x(2)*(1/x13 + 1/x23) - x(1)/x23;
+        pg2 = x(1)*(1/x12 + 1/x23) - x(2)/x23;
+        pg1 = 0.9-pg2;
     end
         
     c1 = c11 * pg1 + c12 * pg1^2;

@@ -33,4 +33,16 @@ syms teta1 teta2 teta3;
 teta=[0;teta2;teta3];
 P = B*teta;
 a = [Pg1 - P1; Pg2; - P3];
-pretty(a==P)
+%generic equation
+eq = (a==P);
+pretty(eq)
+% with default x
+load cachefile.mat x12 x13 x23
+pretty(eval(eq))
+%% display usable eq.
+syms Pg1 Pg2;
+eq(3) = Pg1==0.9-Pg2;
+deq = [eval(eq(2));eq(3)];
+pretty(deq)
+
+
