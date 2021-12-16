@@ -24,19 +24,19 @@ function [x,fval] = gacusto()
         'MutationFcn',      Mutation,...
         'CrossoverFcn',     Crossover);     
     tic
-        % ex2
+        
         if      Exercise == "Ex2"
-            [x, fval] = ga(@custo, 2,    [],   [],  [1 1],  0.9,  0,  1,  [], options);
+            [x, fval] = ga(@custo, 2,    [],   [],  [1 1],  0.9,  0,  0.9,  [], options);
 
         elseif  Exercise == "Ex3"
-            [x, fval] = ga(@custo, 2, [1 0], [0.5], [1 1],  0.9,  0,  1,  [], options);
+            [x, fval] = ga(@custo, 2, [1 0], [0.5], [1 1],  0.9,  0,  0.9,  [], options);
 
         elseif  Exercise == "Ex4"
-            [x, fval] = ga(@custo, 2,    [], [], [10 -20],  0.9, [], [],  [], options);
+            [x, fval] = ga(@custo, 2,    [], [], [10 -20],  0.5, [],  0.9,  [], options);
 
         else
             %EX Customizado
-            if MAXOUT % Redundant but does not work otherwise
+            if MAXOUT
                 %Output restriction
                 if ~NODAL % NORMAL
                     if pg1_max==true % Pg1
@@ -73,7 +73,7 @@ function [x,fval] = gacusto()
         end
     time = num2str(toc, 3);
     %saving variables
-    if (Exercise == "Ex2" || Exercise == "Ex3") 
+    if ~NODAL 
         p1 = num2str(x(1),3);
         p2 = num2str(x(2),3);
         t2 = '';
