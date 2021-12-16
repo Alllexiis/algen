@@ -3,7 +3,7 @@
 function [x,fval] = gacusto()
    
     %loading variables
-    global pg1 pg2;
+    global pg1 pg2 P1 P3;
     global x12 x23 x13 NODAL;
     global c11 c12 c21 c22;
     
@@ -32,10 +32,12 @@ function [x,fval] = gacusto()
             [x, fval] = ga(@custo, 2, [1 0], [0.5], [1 1],  0.9,  0,  0.9,  [], options);
 
         elseif  Exercise == "Ex4"
-            [x, fval] = ga(@custo, 2,    [], [], [10 -20],  0.5, [],  0.9,  [], options);
+            [x, fval] = ga(@custo, 2,    [], [], [10 -20],  0.5, [],   [],  [], options);
 
         else
             %EX Customizado
+            
+                
             if MAXOUT
                 %Output restriction
                 if ~NODAL % NORMAL
@@ -47,6 +49,8 @@ function [x,fval] = gacusto()
                         b=[pg2_max];
                     end
                 else % NODAL
+                    %Aeq=
+                    %beq=
                     if pg1_max==true % Pg1
                         A=(P1+P3)-[1/x12+1/x23 -1/x23];    
                         b=[pg1_max];
