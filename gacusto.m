@@ -26,55 +26,53 @@ function [x,fval] = gacusto()
     tic
         
         if      Exercise == "Ex2"
-            [x, fval] = ga(@custo, 2,    [],   [],  [1 1],  0.9,  0,  0.9,  [], options);
+            [x, fval] = ga(@custo, 2,    [],   [],  [1 1],  0.9,  0,    1,  [], options);
 
         elseif  Exercise == "Ex3"
-            [x, fval] = ga(@custo, 2, [1 0], [0.5], [1 1],  0.9,  0,  0.9,  [], options);
+            [x, fval] = ga(@custo, 2, [1 0], [0.5], [1 1],  0.9,  0,    1,  [], options);
 
         elseif  Exercise == "Ex4"
             [x, fval] = ga(@custo, 2,    [], [], [10 -20],  0.5, [],   [],  [], options);
 
         else
-            %EX Customizado
-            
+        %EX Customizado
+            if      (MAXOUT == 0 && NODAL == 0)
+                A=[]; b=[];
+                Aeq=[1 1];
+                beq=[P1+P3];
                 
-            if MAXOUT
-                %Output restriction
-                if ~NODAL % NORMAL
-                    if pg1_max==true % Pg1
-                        A=[1 0];    
-                        b=[pg1_max];
-                    else % Pg2
-                        A=[0 1];    
-                        b=[pg2_max];
-                    end
-                else % NODAL
-                    %Aeq=
-                    %beq=
-                    if pg1_max==true % Pg1
-                        A=(P1+P3)-[1/x12+1/x23 -1/x23];    
-                        b=[pg1_max];
-                    else % Pg2
-                        A=[1/x12+1/x23 -1/x23];    
-                        b=[pg2_max];
-                    end
-                end
-            else
-                %No Output Restriction
-                A=[];   
-                b=[];
-            end
+            elseif  (MAXOUT == 0 && NODAL == 1)
+                A=[]; b=[];
+                Aeq=[1/x23 -(1/x13+1/x23)];
+                beq=P3;
+                
+            elseif  (MAXOUT == 1 && NODAL == 0)
+                if pg1_max>= 0.001; A=[1 0]; b=[pg1_max]; end
+                if pg2_max>= 0.001; A=[0 1]; b=[pg2_max]; end
+                Aeq=[1 1];
+                beq=[P1+P3];
+                
+            elseif  (MAXOUT == 1 && NODAL == 1)
+                if pg1_max>= 0.001; A=[-(1/x12+1/x23) 1/x23]; b=[pg1_max-(P1+P3)]; end
+                if pg2_max>= 0.001; A=[1/x12+1/x23 -1/x23];   b=[pg2_max]; end
+                Aeq=[1/x23 -(1/x13+1/x23)];
+                beq=P3;
+            end    
+            teste={A;b;Aeq;beq}
             [x, fval] = ga(@custo,...
                 2       ,...<Number of design variables>
                 A       ,...<A matrix for inequality constraints>   %x1 ou x2
                 b       ,...<b vector for inequality constraints>   %<= ao valor
-                [1 1]   ,...<Aeq matrix for equality constraints>   %x1 +x2 =
-                P1+P3   ,...<beq vector for equality constraints>   %0.9 Potencia de saida
-                0       ,...<Lower bound on X> limite inferior
-                P1+P3   ,...<Upper bound on X> limite superior
+                Aeq     ,...<Aeq matrix for equality constraints>   %x1 +x2 =
+                beq     ,...<beq vector for equality constraints>   %0.9 Potencia de saida
+                0       ,...<Lower bound on X> 
+                []      ,...<Upper bound on X> 
                 []      ,...NONLCON
                 options);
+            
+                
         end
+        
     time = num2str(toc, 3);
     %saving variables
     if ~NODAL 
